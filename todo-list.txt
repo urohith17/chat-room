@@ -1,0 +1,6 @@
+adding standard id's for rooms
+adding names to messages
+who is typing 
+who are present in the chat.
+sending images
+checking availability of room

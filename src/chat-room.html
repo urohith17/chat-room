@@ -6,6 +6,16 @@
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        let vh = window.innerHeight * 0.01;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+        // We listen to the resize event
+        window.addEventListener('resize', () => {
+        // We execute the same script as before
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        });
       var socket = io();
       var room = window.location.href;
    function addListeners(){
@@ -35,8 +45,7 @@
                 messageBox.classList.add('sentMessage');
                 messageBox.classList.add('message');
                 document.getElementById('message-container').appendChild(messageBox);
-          }else{
-              window.alert("can't send empty message");
+                document.getElementById('message-container').scrollTop = document.getElementById('message-container').scrollHeight;
           }
       }
     </script>
@@ -55,13 +64,70 @@
             background-color:dodgerblue;
             margin-left:auto;
         }
+        .sendButton{
+            background-color:dodgerblue;
+            color: white;
+            font-size:18px;
+            padding:10px;
+            border:0;
+            outline: 0;
+            border-radius:6px;
+            margin-left: 10px;
+        }
+        input{
+            outline:0px;
+            padding-left:10px;
+            width: 60%;
+            height: 35px;
+            font-size:20px;
+            border:0;
+            border-bottom: 2px solid gray;
+        }
+        input:focus{
+            border-bottom: 2px solid dodgerblue;
+        }
+        .main-container{
+            font-family:Arial, Helvetica, sans-serif;
+            width:80%;
+            margin: auto;
+            font-size: 18px;
+            padding:20px 7vw;
+            color:white;
+            background-color: white;
+            border-radius: 10px;
+            height: 95vh;
+            height: calc(var(--vh, 1vh) * 95);
+            margin-top: 2.5vh;
+            margin-top: calc(var(--vh, 1vh) * 2.5);
+            box-sizing: border-box;
+        }
+        @media screen and (max-width: 1000px) {
+            .main-container{
+                width:100%;
+                height: 100vh;
+                height: calc(var(--vh, 1vh) * 100);
+                margin-top: 0;
+                border-radius: 0px;
+            }
+            input{
+                width: 80%;
+            }
+        }
+        .message-input{
+            height: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
     </style>
 </head>
-<body onload="addListeners()" style='background:#150303'>
-    <div id="message-container" style="height: 80vh;font-family:Arial, Helvetica, sans-serif;width:70%;margin: auto;font-size: 18px;padding:20px 5vw;color:white;background-color: white;border-radius: 10px;overflow-y: auto;"></div>
-    <div style="width:100%;position: fixed;bottom: 5%; background-color: white;">
-    <input id ='text-message' type='text' placeholder="Enter a message" style="outline:0px;padding-left:10px;width: 60%;margin-left: 15%;height: 35px;font-size:20px;border-radius: 5px;">
-    <button onclick="sendMessage()" style="background-color:dodgerblue;color: white;font-size:18px;padding:10px;border:0;border-radius:6px">Send</button>
+<body onload="addListeners()" style='background:#150303;margin:0'>
+    <div class='main-container'>
+        <div id="message-container" style="height: 85%;overflow-y: auto;"></div>
+        <div class='message-input'>
+            <input id ='text-message' type='text' placeholder="Enter a message" autofocus>
+            <button onclick="sendMessage()" class='sendButton'>Send</button>
+        </div>
     </div>
 </body>
 </html>
