@@ -1,0 +1,8 @@
+
+<div class='main-container'>
+<div class="container">
+    <h1 style="color: white;">Create a room to chat</h1>
+    <input [(ngModel)] ='roomName' id='room-name' type='text' placeholder="Room name" autofocus (keyup.enter)='enterRoom()'>
+    <button class='enter-button' (click)="enterRoom()">Enter</button>
+</div>
+</div>

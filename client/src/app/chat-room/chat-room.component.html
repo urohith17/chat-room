@@ -1,0 +1,18 @@
+<div class='chat-container'>
+<div class='main-container'>
+    <div #messageContainer style="height: 85%;overflow-y: auto;">
+        <ng-container *ngFor='let messageObject of messageList'>
+            <div class='sent-message message' *ngIf='messageObject.type ==="sent"' >
+                {{messageObject.message}}
+            </div>
+            <div class='message receivedMessage' *ngIf='messageObject.type ==="received"'>
+                {{messageObject.message}}
+            </div>
+        </ng-container>
+    </div>
+    <div class='message-input'>
+        <input [(ngModel)]="message" id ='text-message' type='text' placeholder="Enter a message" (keyup.enter)='sendMessage()' autofocus>
+        <button (click)="sendMessage()" class='sendButton'>Send</button>
+    </div>
+</div>
+</div>
